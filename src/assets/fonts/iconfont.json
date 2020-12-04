@@ -1,0 +1,58 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1073505",
+      "name": "目录",
+      "font_class": "mulu",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "1181732",
+      "name": "放大镜",
+      "font_class": "icon105",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "1473243",
+      "name": "电影",
+      "font_class": "dianying",
+      "unicode": "e679",
+      "unicode_decimal": 59001
+    },
+    {
+      "icon_id": "9120574",
+      "name": "我 的",
+      "font_class": "wode",
+      "unicode": "e502",
+      "unicode_decimal": 58626
+    },
+    {
+      "icon_id": "12858819",
+      "name": "演出",
+      "font_class": "yanchu",
+      "unicode": "e67f",
+      "unicode_decimal": 59007
+    },
+    {
+      "icon_id": "15949784",
+      "name": "小视频",
+      "font_class": "11",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "17447452",
+      "name": "视频",
+      "font_class": "shipin",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    }
+  ]
+}
