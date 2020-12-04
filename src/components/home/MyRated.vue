@@ -3,7 +3,12 @@
     <h5>最受欢迎电影</h5>
     <ul>
       <li v-for="item in ratedList" :key="item._id">
-        <img :src="item.imgUrl" alt="" />
+        <div class="img-wrap">
+          <img :src="item.imgUrl" alt="" />
+          <!-- 评分 -->
+          <span v-if="item.score">观众评分 {{ item.score }}</span>
+          <span v-else>{{ item.wishNum }}人想看</span>
+        </div>
         <p>{{ item.title }}</p>
       </li>
     </ul>
@@ -45,9 +50,34 @@ export default {
       margin-right: 10px;
       flex-shrink: 0;
 
-      img {
+      .img-wrap {
         width: 100%;
         height: 115px;
+        position: relative;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+
+        span {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 35px;
+          background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 1),
+            rgba(0, 0, 0, 0)
+          );
+          color: #faaf00;
+          font-size: 12px;
+          display: flex;
+          justify-content: center;
+          align-items: flex-end;
+          font-weight: 900;
+        }
       }
 
       p {

@@ -1,3 +1,17 @@
 $theme-color: #e54847;
 $active-color: #333;
 $border-color: #e6e6e6;
+
+// sass的混入， @mixin作为定义， @include来调用
+// 溢出省略号
+@mixin text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
