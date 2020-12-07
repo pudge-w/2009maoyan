@@ -1,27 +1,42 @@
 <template>
   <div class="rated">
     <h5>最受欢迎电影</h5>
-    <ul>
-      <li v-for="item in ratedList" :key="item._id">
-        <div class="img-wrap">
-          <img :src="item.imgUrl" alt="" />
-          <!-- 评分 -->
-          <span v-if="item.score">观众评分 {{ item.score }}</span>
-          <span v-else>{{ item.wishNum }}人想看</span>
-        </div>
-        <p>{{ item.title }}</p>
-      </li>
-    </ul>
+    <div class="ul-wrap">
+      <ul>
+        <li v-for="item in ratedList" :key="item._id">
+          <div class="img-wrap">
+            <img :src="item.imgUrl" alt="" />
+            <!-- 评分 -->
+            <span v-if="item.score">观众评分 {{ item.score }}</span>
+            <span v-else>{{ item.wishNum }}人想看</span>
+          </div>
+          <p>{{ item.title }}</p>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
+import BetterScroll from "better-scroll";
+
 export default {
   props: {
     ratedList: Array
   },
   data() {
     return {};
+  },
+  watch: {
+    async ratedList() {
+      // console.log("list改变了");
+      await this.$nextTick();
+      new BetterScroll(".ul-wrap", {
+        scrollX: true,
+        scrollY: false,
+        click: true
+      });
+    }
   }
 };
 </script>
@@ -39,10 +54,14 @@ export default {
     font-weight: 500;
   }
 
-  ul {
+  .ul-wrap {
     height: 168px;
-    display: flex;
-    overflow: auto;
+    overflow: hidden;
+  }
+
+  ul {
+    height: 100%;
+    display: inline-flex;
 
     li {
       width: 85px;
