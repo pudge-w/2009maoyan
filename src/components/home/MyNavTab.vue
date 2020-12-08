@@ -2,14 +2,15 @@
   <nav>
     <address>杭州</address>
     <ul>
-      <li
+      <router-link
+        tag="li"
         v-for="(item, index) in navList"
         :key="index"
-        @click="handleClick(index)"
-        :class="{ active: activeIndex === index }"
+        :to="item.url"
+        active-class="active"
       >
-        {{ item }}
-      </li>
+        {{ item.title }}
+      </router-link>
     </ul>
     <span class="iconfont icon-icon105"></span>
   </nav>
@@ -19,7 +20,25 @@
 export default {
   data() {
     return {
-      navList: ["热映", "影院", "待映", "经典"],
+      // navList: ["热映", "影院", "待映", "经典"],
+      navList: [
+        {
+          title: "热映",
+          url: "hot"
+        },
+        {
+          title: "影院",
+          url: "cinema"
+        },
+        {
+          title: "待映",
+          url: "wait"
+        },
+        {
+          title: "经典",
+          url: "classic"
+        }
+      ],
       activeIndex: 0
     };
   },

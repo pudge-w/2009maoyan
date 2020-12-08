@@ -2,7 +2,8 @@ import Vue from "vue";
 import App from "./App.vue";
 
 // 引入了路由和vuex
-// import router from "./router";
+// 路径是文件夹结束的，默认找文件夹下的index文件
+import router from "./router";
 // import store from "./store";
 
 // 引入reset.css
@@ -18,7 +19,7 @@ import "amfe-flexible";
 Vue.config.productionTip = false;
 
 new Vue({
-  // router: touter,
+  router: router,
   // store: store,
   render: h => h(App)
 }).$mount("#app");
