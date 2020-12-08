@@ -61,6 +61,12 @@ const routes = [
     ]
   },
   {
+    path: "/detail/:movieId",
+    name: "detail",
+    props: true,
+    component: () => import("../views/Detail.vue")
+  },
+  {
     path: "*",
     component: () => import("../views/Not404.vue")
   }
@@ -69,5 +75,11 @@ const routes = [
 const router = new VueRouter({
   routes
 });
+
+// 解决路由重复点击报错的问题
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
+};
 
 export default router;

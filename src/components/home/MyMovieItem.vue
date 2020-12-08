@@ -1,5 +1,5 @@
 <template>
-  <li class="movie-item">
+  <li class="movie-item" @click="goToDetail(item.movieid)">
     <img :src="item.img | formatUrl" alt="" />
     <div class="item-right">
       <div class="item-main">
@@ -25,6 +25,12 @@ export default {
   filters: {
     formatUrl(val) {
       return val.split("/w.h").join("");
+    }
+  },
+  methods: {
+    goToDetail(id) {
+      // this.$router.push("/detail/" + id);
+      this.$router.push({ name: "detail", params: { movieId: id } });
     }
   }
 };

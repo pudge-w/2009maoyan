@@ -9,3 +9,6 @@ export const getMovieListApi = params => http.get("/movies/list", params);
 
 // 首页加载更多
 export const getMovieListMoreApi = params => http.post("/movies/more", params);
+
+// 详情页数据
+export const getMovieDetailApi = params => http.post("/movies/detail", params);
