@@ -39,6 +39,7 @@
         </div>
       </div>
     </div>
+    <button @click="more">按钮</button>
   </div>
 </template>
 
@@ -47,10 +48,10 @@ import { getMovieDetailApi } from "../utils/api";
 import StarsBar from "../components/detail/StarsBar";
 
 export default {
-  props: ["movieId"],
+  // props: ["movieId"],
   data() {
     return {
-      id: this.movieId,
+      id: "",
       detailData: {}
     };
   },
@@ -65,14 +66,26 @@ export default {
       return val.split(",").join("/");
     }
   },
+  created() {
+    this.id = this.$route.params.movieId;
+  },
   mounted() {
     this.getDetailData();
+  },
+  beforeRouteUpdate(to, from, next) {
+    // console.log(to);
+    this.id = to.params.movieId;
+    this.getDetailData();
+    next();
   },
   methods: {
     async getDetailData() {
       // 请求数据
       const res = await getMovieDetailApi({ id: this.id });
       this.detailData = res.result;
+    },
+    more() {
+      this.$router.push("/detail/1240838");
     }
   }
 };

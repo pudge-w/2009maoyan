@@ -6,11 +6,12 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    redirect: "/movie"
+    redirect: "/home"
   },
   {
     path: "/home",
     component: () => import("../views/Home.vue"),
+    redirect: "/movie",
     children: [
       {
         path: "/movie",
@@ -31,6 +32,8 @@ const routes = [
           {
             path: "wait",
             component: () => import("../views/movie/Wait.vue")
+            // props: { a: 3 }
+            // props: (route) => ({ a: route.query.a })
           },
           {
             path: "classic",
@@ -48,7 +51,15 @@ const routes = [
       },
       {
         path: "/show",
-        component: () => import("../views/Show.vue")
+        name: "show",
+        component: () => import("../views/Show.vue"),
+        beforeEnter: (to, from, next) => {
+          if (!localStorage.getItem("token")) {
+            next("/login");
+          } else {
+            next();
+          }
+        }
       },
       {
         path: "/mine",
@@ -63,8 +74,12 @@ const routes = [
   {
     path: "/detail/:movieId",
     name: "detail",
-    props: true,
+    // props: true,
     component: () => import("../views/Detail.vue")
+  },
+  {
+    path: "/login",
+    component: () => import("../views/Login.vue")
   },
   {
     path: "*",
@@ -75,6 +90,29 @@ const routes = [
 const router = new VueRouter({
   routes
 });
+
+// 全局的路由前置守卫
+router.beforeEach((to, from, next) => {
+  // console.log("to", to);
+  // console.log("from", from);
+  next();
+  // 如果没有登录，不让进演出页
+  // if (to.name === "show") {
+  //   if (!localStorage.getItem("token")) {
+  //     next("/login");
+  //   } else {
+  //     next();
+  //   }
+  // } else {
+  //   next();
+  // }
+});
+
+// 全局的后置钩子
+// router.afterEach((to, from) => {
+//   console.log("to", to);
+//   console.log("from", from);
+// })
 
 // 解决路由重复点击报错的问题
 const originalPush = VueRouter.prototype.push;
