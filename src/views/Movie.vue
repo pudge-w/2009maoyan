@@ -5,7 +5,13 @@
       <my-nav-tab />
     </section>
     <div class="content">
+      <!-- <transition name="movieTransition" mode="in-out"> -->
+      <!-- <keep-alive>
+          <router-view v-if="$route.meta.requieAlive"></router-view>
+        </keep-alive>
+        <router-view v-if="!$route.meta.requieAlive"></router-view> -->
       <router-view></router-view>
+      <!-- </transition> -->
     </div>
   </div>
 </template>
@@ -33,5 +39,20 @@ section.header {
 
 .content {
   margin-top: 96px;
+  /* position: relative;
+  height: 500px; */
+  /* position: absolute;
+  top: 96px;
+  left: 0;
+  right: 0;
+  bottom: 48px; */
+}
+
+.movieTransition-enter-active,
+.movieTransition-leave-active {
+  transition: all 1s;
+}
+.movieTransition-enter/* .fade-leave-active below version 2.1.8 */ {
+  transform: translateX(100%);
 }
 </style>

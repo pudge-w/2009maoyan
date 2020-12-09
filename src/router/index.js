@@ -16,6 +16,7 @@ const routes = [
       {
         path: "/movie",
         component: () => import("../views/Movie.vue"),
+        meta: { requieAlive: true },
         children: [
           {
             path: "/movie",
@@ -23,15 +24,18 @@ const routes = [
           },
           {
             path: "hot",
-            component: () => import("../views/movie/Hot.vue")
+            component: () => import("../views/movie/Hot.vue"),
+            meta: { requieAlive: true }
           },
           {
             path: "cinema",
-            component: () => import("../views/movie/Cinema.vue")
+            component: () => import("../views/movie/Cinema.vue"),
+            meta: { requieAlive: true }
           },
           {
             path: "wait",
-            component: () => import("../views/movie/Wait.vue")
+            component: () => import("../views/movie/Wait.vue"),
+            meta: { requieAlive: true }
             // props: { a: 3 }
             // props: (route) => ({ a: route.query.a })
           },
@@ -43,11 +47,13 @@ const routes = [
       },
       {
         path: "/video",
-        component: () => import("../views/Video.vue")
+        component: () => import("../views/Video.vue"),
+        meta: { requireLogin: true, titleName: "猫眼视频", requieAlive: true }
       },
       {
         path: "/minivideo",
-        component: () => import("../views/MiniVideo.vue")
+        component: () => import("../views/MiniVideo.vue"),
+        meta: { requireLogin: true, titleName: "猫眼小视频" }
       },
       {
         path: "/show",
@@ -88,24 +94,44 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  routes
+  routes,
+  // 处理路由切换时的滚动条
+  scrollBehavior(to, from, savedPosition) {
+    // savedPosition仅当前进或者后退的时候生效
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 0, y: 0 };
+    }
+  }
 });
 
 // 全局的路由前置守卫
 router.beforeEach((to, from, next) => {
   // console.log("to", to);
   // console.log("from", from);
-  next();
+  // next();
   // 如果没有登录，不让进演出页
-  // if (to.name === "show") {
-  //   if (!localStorage.getItem("token")) {
-  //     next("/login");
-  //   } else {
-  //     next();
-  //   }
-  // } else {
-  //   next();
-  // }
+  // 通过meta元信息一次性的解决多个页面都需要登录的问题
+  if (to.meta.requireLogin) {
+    if (!localStorage.getItem("token")) {
+      next("/login");
+    } else {
+      if (to.meta.titleName) {
+        document.title = to.meta.titleName;
+      } else {
+        document.title = "小汪的猫眼";
+      }
+      next();
+    }
+  } else {
+    if (to.meta.titleName) {
+      document.title = to.meta.titleName;
+    } else {
+      document.title = "小汪的猫眼";
+    }
+    next();
+  }
 });
 
 // 全局的后置钩子

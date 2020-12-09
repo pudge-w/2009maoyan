@@ -29,5 +29,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #777;
   background: #f5f5f5;
+  overflow: hidden;
 }
 </style>

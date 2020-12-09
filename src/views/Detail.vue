@@ -1,45 +1,51 @@
 <template>
-  <div
-    class="detail"
-    :style="{ background: detailData.backgroundColor }"
-    v-if="detailData.nm"
-  >
-    <p class="title">猫眼电影 > {{ detailData.nm }}</p>
-    <div class="content">
-      <img class="content-img" :src="detailData.img | formatUrl" alt="" />
-      <div class="content-right">
-        <h2>{{ detailData.nm }}</h2>
-        <h5>{{ detailData.enm }}</h5>
-        <h5>{{ detailData.cat | formatCat }}</h5>
-        <h5>{{ detailData.star | formatCat }}</h5>
-        <h5>{{ detailData.pubDesc + detailData.dur + "分钟 >" }}</h5>
-        <div class="buttonGroup">
-          <div class="button">想看</div>
-          <div class="button">看过</div>
+  <div>
+    <div
+      class="detail"
+      :style="{ background: detailData.backgroundColor }"
+      v-if="detailData.nm"
+    >
+      <p class="title">猫眼电影 > {{ detailData.nm }}</p>
+      <div class="content">
+        <img class="content-img" :src="detailData.img | formatUrl" alt="" />
+        <div class="content-right">
+          <h2>{{ detailData.nm }}</h2>
+          <h5>{{ detailData.enm }}</h5>
+          <h5>{{ detailData.cat | formatCat }}</h5>
+          <h5>{{ detailData.star | formatCat }}</h5>
+          <h5>{{ detailData.pubDesc + detailData.dur + "分钟 >" }}</h5>
+          <div class="buttonGroup">
+            <div class="button">想看</div>
+            <div class="button">看过</div>
+          </div>
         </div>
       </div>
+
+      <div class="score">
+        <div class="score-title">
+          <span style="float: left">实时口碑</span>
+          <span style="float: right">
+            {{ detailData.watched }}人看过 {{ detailData.wish }}人想看
+          </span>
+        </div>
+        <div class="middle">
+          <div>{{ detailData.sc }}分{{ detailData.snum }}</div>
+          <div>
+            <stars-bar
+              v-for="(item, index) in detailData.distributions"
+              :key="index"
+              :starsCount="3 - index"
+              :proportion="item.proportion"
+            />
+          </div>
+        </div>
+      </div>
+      <button @click="more">按钮</button>
     </div>
 
-    <div class="score">
-      <div class="score-title">
-        <span style="float: left">实时口碑</span>
-        <span style="float: right">
-          {{ detailData.watched }}人看过 {{ detailData.wish }}人想看
-        </span>
-      </div>
-      <div class="middle">
-        <div>{{ detailData.sc }}分{{ detailData.snum }}</div>
-        <div>
-          <stars-bar
-            v-for="(item, index) in detailData.distributions"
-            :key="index"
-            :starsCount="3 - index"
-            :proportion="item.proportion"
-          />
-        </div>
-      </div>
-    </div>
-    <button @click="more">按钮</button>
+    <!-- <div v-else>
+      加载中。
+    </div> -->
   </div>
 </template>
 
@@ -70,7 +76,15 @@ export default {
     this.id = this.$route.params.movieId;
   },
   mounted() {
-    this.getDetailData();
+    // this.getDetailData();
+  },
+  async beforeRouteEnter(to, from, next) {
+    // ...拿不到this,拿到vm
+    const res = await getMovieDetailApi({ id: to.params.movieId });
+    // console.log(to);
+    next(vm => {
+      vm.detailData = res.result;
+    });
   },
   beforeRouteUpdate(to, from, next) {
     // console.log(to);
