@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <address>杭州</address>
+    <address @click="goToCities">杭州</address>
     <ul>
       <router-link
         tag="li"
@@ -45,6 +45,9 @@ export default {
   methods: {
     handleClick(i) {
       this.activeIndex = i;
+    },
+    goToCities() {
+      this.$router.push("/cities");
     }
   }
 };

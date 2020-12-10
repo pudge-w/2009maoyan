@@ -12,3 +12,6 @@ export const getMovieListMoreApi = params => http.post("/movies/more", params);
 
 // 详情页数据
 export const getMovieDetailApi = params => http.post("/movies/detail", params);
+
+// 城市选择列表
+export const getCitiesListApi = params => http.get("/area/list", params);

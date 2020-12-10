@@ -1,4 +1,5 @@
 import qs from "qs";
+import NProgress from 'nprogress';
 
 // 封装请求
 const prefix = "http://pudge.wang:3080/api";
@@ -26,6 +27,7 @@ const http = {
       });
   },
   post(url, params) {
+    NProgress.start()
     return fetch(prefix + url, {
       method: "POST",
       headers: {
@@ -33,7 +35,10 @@ const http = {
       },
       body: qs.stringify(params)
     })
-      .then(response => response.json())
+      .then(response => {
+        NProgress.done();
+        return response.json();
+      })
       .then(res => {
         if (res.status === 0) {
           return res;

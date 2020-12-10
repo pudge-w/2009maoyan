@@ -9,6 +9,8 @@ import router from "./router";
 // 引入reset.css
 import "./assets/css/reset.scss";
 
+import "nprogress/nprogress.css";
+
 // 引入iconfont
 import "./assets/fonts/iconfont.css";
 
