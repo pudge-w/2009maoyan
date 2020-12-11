@@ -11,7 +11,7 @@
 // import http from "@/utils/http";
 import BetterScroll from "better-scroll";
 
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 
 // 引入qs，用于fetch的post请求
 // import qs from "qs";
@@ -78,7 +78,19 @@ export default {
     });
   },
   computed: {
-    ...mapState(["ratedList", "movieList", "count", "ids"]),
+    // ...mapState(["ratedList", "movieList", "count", "ids"]),
+    ratedList() {
+      return this.$store.state.moduleHot.ratedList;
+    },
+    movieList() {
+      return this.$store.state.moduleHot.movieList;
+    },
+    count() {
+      return this.$store.state.moduleHot.count;
+    },
+    ids() {
+      return this.$store.state.moduleHot.ids;
+    },
     isToBottom() {
       return this.start > this.count;
     }

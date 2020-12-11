@@ -55,12 +55,12 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["changeCity"]),
+    ...mapMutations(["moduleCity/changeCity"]),
     goHome(city) {
       // 改变vuex的值
-      // this.$store.commit("changeCity", city);
+      // this.$store.commit("moduleCity/changeCity", city);
       // 辅助函数的写法
-      this.changeCity(city);
+      this["moduleCity/changeCity"](city);
       this.$router.go(-1);
     }
   }

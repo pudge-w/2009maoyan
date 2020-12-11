@@ -17,7 +17,10 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+
+const { mapState } = createNamespacedHelpers("moduleCity");
 
 export default {
   data() {
@@ -47,11 +50,16 @@ export default {
   // 一般写法
   // computed: {
   //   city() {
-  //     return this.$store.state.city;
+  //     // console.log(this.$store.state.moduleCity.city);
+  //     return this.$store.state.moduleCity.city;
   //   }
   // },
   // 辅助函数写法
+  // computed: mapState(["moduleCity/city"]),  命名空间不能使用数组的方式写mapstate
   computed: mapState(["city"]),
+  // computed: mapState({
+  //   city: state => state.moduleCity.city
+  // }),
   methods: {
     handleClick(i) {
       this.activeIndex = i;
