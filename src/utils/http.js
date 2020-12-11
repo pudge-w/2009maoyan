@@ -1,5 +1,5 @@
 import qs from "qs";
-import NProgress from 'nprogress';
+import NProgress from "nprogress";
 
 // 封装请求
 const prefix = "http://pudge.wang:3080/api";
@@ -27,7 +27,12 @@ const http = {
       });
   },
   post(url, params) {
-    NProgress.start()
+    NProgress.start();
+    // params ? params : {};
+    // params = {
+    //   ...params,
+    //   cityId: this.$store.state.city.cityId
+    // };
     return fetch(prefix + url, {
       method: "POST",
       headers: {

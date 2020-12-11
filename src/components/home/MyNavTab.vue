@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <address @click="goToCities">杭州</address>
+    <address @click="goToCities">{{ city.name }}</address>
     <ul>
       <router-link
         tag="li"
@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -42,6 +44,14 @@ export default {
       activeIndex: 0
     };
   },
+  // 一般写法
+  // computed: {
+  //   city() {
+  //     return this.$store.state.city;
+  //   }
+  // },
+  // 辅助函数写法
+  computed: mapState(["city"]),
   methods: {
     handleClick(i) {
       this.activeIndex = i;

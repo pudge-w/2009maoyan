@@ -1,9 +1,14 @@
 <template>
-  <div>
+  <div v-if="citiesList.length">
     <div>
       <div class="title">热门城市</div>
       <ul class="hotul">
-        <li v-for="item in hotList.cities" :key="item.cityId" class="hotitem" @click="goHome(item.name)">
+        <li
+          v-for="item in hotList.cities"
+          :key="item.cityId"
+          class="hotitem"
+          @click="goHome(item)"
+        >
           {{ item.name }}
         </li>
       </ul>
@@ -12,7 +17,12 @@
     <div v-for="item in cityList" :key="item.prefix">
       <div class="title">{{ item.prefix.toUpperCase() }}</div>
       <ul class="cityul">
-        <li v-for="city in item.cities" :key="city.cityId" class="cityItem" @click="goHome(city.name)">
+        <li
+          v-for="city in item.cities"
+          :key="city.cityId"
+          class="cityItem"
+          @click="goHome(city)"
+        >
           {{ city.name }}
         </li>
       </ul>
@@ -22,19 +32,19 @@
 
 <script>
 import { getCitiesListApi } from "../utils/api";
+import { mapMutations } from "vuex";
 
 export default {
   data() {
     return {
-      citiesList: [],
-      chooseCity: ""
+      citiesList: []
     };
   },
-  async beforeRouteEnter (to, from, next) {
+  async beforeRouteEnter(to, from, next) {
     const res = await getCitiesListApi();
     next(vm => {
       vm.citiesList = res.result;
-    })
+    });
   },
   computed: {
     hotList() {
@@ -45,8 +55,12 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(["changeCity"]),
     goHome(city) {
-      this.chooseCity = city;
+      // 改变vuex的值
+      // this.$store.commit("changeCity", city);
+      // 辅助函数的写法
+      this.changeCity(city);
       this.$router.go(-1);
     }
   }
@@ -92,6 +106,4 @@ export default {
     color: #333;
   }
 }
-
-
 </style>

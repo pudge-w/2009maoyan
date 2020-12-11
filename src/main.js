@@ -4,7 +4,7 @@ import App from "./App.vue";
 // 引入了路由和vuex
 // 路径是文件夹结束的，默认找文件夹下的index文件
 import router from "./router";
-// import store from "./store";
+import store from "./store";
 
 // 引入reset.css
 import "./assets/css/reset.scss";
@@ -22,6 +22,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   router: router,
-  // store: store,
+  store: store,
   render: h => h(App)
 }).$mount("#app");
